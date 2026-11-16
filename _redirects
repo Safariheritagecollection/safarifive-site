@@ -1,0 +1,16 @@
+https://www.safarifive.com/* https://safarifive.com/:splat 301!
+https://thesafarifive.com/* https://safarifive.com/:splat 301!
+https://www.thesafarifive.com/* https://safarifive.com/:splat 301!
+https://safari5.com/* https://safarifive.com/:splat 301!
+https://www.safari5.com/* https://safarifive.com/:splat 301!
+https://thesafari5.com/* https://safarifive.com/:splat 301!
+https://www.thesafari5.com/* https://safarifive.com/:splat 301!
+/film.html /share.html 301
+/film /share.html 301
+/share /share.html 301
+/app /app.html 301
+/checklist.html /app.html 301
+/wall.html /hall-of-the-five.html 301
+/creed.html /what-its-about.html 301
+/creed /what-its-about.html 301
+/* /404.html 404

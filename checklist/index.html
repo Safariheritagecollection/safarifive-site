@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Safari Five</title>
+<meta name="description" content="The Safari Five app: tick off the five, stamp your area in a Safari Five area, and get your Completed stamp.">
+<meta name="theme-color" content="#1E1B16">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="../favicon-32.png" type="image/png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Safari Five">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+.trip summary{cursor:pointer;font:600 15px "Work Sans",sans-serif;list-style:revert}.trip .opt{font-weight:400;color:#7A6F5E}.trip input{width:100%;box-sizing:border-box;margin-bottom:12px}
+:root{--ink:#1E1B16;--cream:#F2EADB;--ochre:#B5762A;--ochre-d:#8A5A1E;--olive:#3F4A33;--sand:#E9DFCB;--line:#D8CCB4;--muted:#5A5142;--paper:#FBF6EC}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font:400 16px/1.55 'Work Sans',system-ui,sans-serif;min-height:100vh}
+h1,h2,h3{font-family:'Zilla Slab',Georgia,serif;font-weight:700;line-height:1.15;margin:0 0 .4em}
+.top{background:var(--ink);color:var(--cream);padding:calc(14px + env(safe-area-inset-top)) 18px 14px;display:flex;align-items:center;gap:12px}
+.top b{font:700 19px 'Zilla Slab',serif;flex:1}
+.top a{color:var(--sand);font-size:14px}
+.app{max-width:520px;margin:0 auto;padding:22px 16px 60px}
+.screen[hidden]{display:none}
+.center{text-align:center}
+.center svg{display:block;margin:6px auto 14px}
+.eyebrow{font:600 12px 'Work Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--ochre-d);margin:0 0 8px}
+p{margin:0 0 1em}
+.muted{color:var(--muted);font-size:14.5px}
+label.f{display:block;font-weight:600;font-size:14px;margin:14px 0 6px}
+input[type=text],input[type=email]{width:100%;font:16px 'Work Sans',sans-serif;padding:13px 12px;border:1px solid #BFB196;border-radius:4px;background:#fff;color:var(--ink)}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:14px;margin:16px 0;color:var(--muted)}
+.consent input{margin-top:3px;width:18px;height:18px;flex:none}
+.btn{display:block;width:100%;text-align:center;background:var(--ochre);color:#fff;border:0;border-radius:4px;padding:15px;font:600 16px 'Work Sans',sans-serif;cursor:pointer;text-decoration:none;margin-top:10px}
+.btn:disabled{background:#CDBFA6;color:#fff;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.btn.dark{background:var(--ink)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:16px;margin:16px 0}
+.hello{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.count{font:700 15px 'Zilla Slab',serif;color:var(--ochre-d);white-space:nowrap}
+.five{list-style:none;margin:0;padding:0}
+.five li{border-bottom:1px solid var(--line)}
+.five li:last-child{border:0}
+.five label{display:flex;gap:14px;align-items:center;padding:13px 2px;cursor:pointer}
+.five input{position:absolute;opacity:0}
+.n{flex:none;width:42px;height:42px;border:2px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 19px 'Zilla Slab',serif;position:relative}
+.five input:checked+.n{background:var(--ochre);border-color:var(--ochre);color:transparent}
+.five input:checked+.n::after{content:"";position:absolute;width:11px;height:20px;border:solid #fff;border-width:0 4px 4px 0;transform:rotate(45deg) translate(-2px,-2px)}
+.five input:focus-visible+.n{outline:3px solid var(--ochre);outline-offset:3px}
+.t strong{display:block;font:700 17px 'Zilla Slab',serif}
+.t small{color:var(--muted);font-size:13.5px}
+.stamp{display:flex;gap:14px;align-items:center}
+.pin{flex:none;width:46px;height:46px;border-radius:50%;background:var(--olive);display:flex;align-items:center;justify-content:center}
+.pin.ok{background:var(--ochre)}
+.stamp-t{flex:1;font-size:14.5px}
+.stamp-t strong{display:block;font:700 17px 'Zilla Slab',serif}
+.note{font-size:14px;padding:10px 12px;border-radius:4px;background:var(--sand);margin-top:12px}
+.note.bad{background:#F3DCCB}
+.demo{border:1px dashed var(--ochre);background:#FFF8EA;padding:10px 12px;font-size:13px;border-radius:4px;margin:16px 0}
+.demo button{font:600 13px 'Work Sans',sans-serif;background:none;border:0;color:var(--ochre-d);text-decoration:underline;cursor:pointer;padding:0}
+.who{font:700 26px 'Zilla Slab',serif;margin:0}
+.where{color:var(--muted);margin:2px 0 18px}
+.rank{font:600 12px 'Work Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--ochre-d);margin:-8px 0 16px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.small-links{display:flex;justify-content:center;gap:18px;margin-top:22px;font-size:14px}
+.small-links a,.small-links button{color:var(--ochre-d);background:none;border:0;font:inherit;text-decoration:underline;cursor:pointer;padding:0}
+.install{font-size:14px}
+</style>
+</head>
+<body>
+<div class="top"><svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="96" fill="none" stroke="#F2EADB" stroke-width="3"/><circle cx="100" cy="100" r="88" fill="none" stroke="#F2EADB" stroke-width="1"/><path transform="translate(46.63 62) scale(0.022 -0.022)" d="M526 197Q526 96 458.0 43.0Q390 -10 271 -10Q205 -10 139.5 7.0Q74 24 36 58L56 219L163 209L162 130Q196 112 220.0 108.5Q244 105 261 105Q314 105 348.0 118.5Q382 132 382 181Q382 235 342.0 253.5Q302 272 248 282Q201 290 153.5 305.5Q106 321 74.0 356.5Q42 392 42 462Q42 571 116.0 615.5Q190 660 278 660Q342 660 400.0 640.5Q458 621 489 588L495 447L388 437L379 513Q354 530 328.5 536.0Q303 542 279 542Q239 542 212.5 528.0Q186 514 186 479Q186 438 220.0 422.0Q254 406 298 396Q338 388 391.5 373.5Q445 359 485.5 319.5Q526 280 526 197Z" fill="#F2EADB"/><path transform="translate(64.89 62) scale(0.022 -0.022)" d="M687 0H428V114H480L456 180H235L208 114H269V0H13V114H72L258 536H168V650H391L625 114H687ZM420 276 352 459H346L273 276Z" fill="#F2EADB"/><path transform="translate(86.00 62) scale(0.022 -0.022)" d="M547 450 433 440 413 536H243V354H516V241H243V114H349V0H39V114H109V536H39V650H527Z" fill="#F2EADB"/><path transform="translate(104.47 62) scale(0.022 -0.022)" d="M687 0H428V114H480L456 180H235L208 114H269V0H13V114H72L258 536H168V650H391L625 114H687ZM420 276 352 459H346L273 276Z" fill="#F2EADB"/><path transform="translate(125.59 62) scale(0.022 -0.022)" d="M626 0H460L331 248H243V114H313V0H39V114H109V536H39V650H333Q454 650 519.0 600.5Q584 551 584 453Q584 387 550.0 342.5Q516 298 460 276L548 114H626ZM440 450Q440 499 411.0 517.5Q382 536 309 536H243V354H307Q384 354 412.0 379.0Q440 404 440 450Z" fill="#F2EADB"/><path transform="translate(145.62 62) scale(0.022 -0.022)" d="M313 0H39V114H109V536H39V650H313V536H243V114H313Z" fill="#F2EADB"/><line x1="66" y1="72" x2="134" y2="72" stroke="#F2EADB" stroke-width="1.2"/><path transform="translate(70.60 166) scale(0.112 -0.112)" d="M496 201Q496 83 422.0 36.0Q348 -11 246 -11Q138 -11 84.0 37.5Q30 86 29 168L138 201Q138 166 162.0 134.5Q186 103 245 103Q302 103 326.5 133.5Q351 164 351 201Q351 264 304.5 283.0Q258 302 198 302Q174 302 150.0 300.0Q126 298 104 297L61 338V651H461L480 468L366 458L348 537H185V410Q194 411 203.5 411.0Q213 411 222 411Q292 411 355.0 393.5Q418 376 457.0 331.0Q496 286 496 201Z" fill="#B5762A"/></svg><b>My Safari Five</b><a href="../index.html">safarifive.com</a></div>
+<main class="app">
+
+<!-- 1. Welcome / register -->
+<section class="screen" id="sWelcome" hidden>
+  <div class="center"><svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 200 200" role="img" aria-label="The Safari Five"><circle cx="100" cy="100" r="96" fill="none" stroke="#1E1B16" stroke-width="3"/><circle cx="100" cy="100" r="88" fill="none" stroke="#1E1B16" stroke-width="1"/><path transform="translate(46.63 62) scale(0.022 -0.022)" d="M526 197Q526 96 458.0 43.0Q390 -10 271 -10Q205 -10 139.5 7.0Q74 24 36 58L56 219L163 209L162 130Q196 112 220.0 108.5Q244 105 261 105Q314 105 348.0 118.5Q382 132 382 181Q382 235 342.0 253.5Q302 272 248 282Q201 290 153.5 305.5Q106 321 74.0 356.5Q42 392 42 462Q42 571 116.0 615.5Q190 660 278 660Q342 660 400.0 640.5Q458 621 489 588L495 447L388 437L379 513Q354 530 328.5 536.0Q303 542 279 542Q239 542 212.5 528.0Q186 514 186 479Q186 438 220.0 422.0Q254 406 298 396Q338 388 391.5 373.5Q445 359 485.5 319.5Q526 280 526 197Z" fill="#1E1B16"/><path transform="translate(64.89 62) scale(0.022 -0.022)" d="M687 0H428V114H480L456 180H235L208 114H269V0H13V114H72L258 536H168V650H391L625 114H687ZM420 276 352 459H346L273 276Z" fill="#1E1B16"/><path transform="translate(86.00 62) scale(0.022 -0.022)" d="M547 450 433 440 413 536H243V354H516V241H243V114H349V0H39V114H109V536H39V650H527Z" fill="#1E1B16"/><path transform="translate(104.47 62) scale(0.022 -0.022)" d="M687 0H428V114H480L456 180H235L208 114H269V0H13V114H72L258 536H168V650H391L625 114H687ZM420 276 352 459H346L273 276Z" fill="#1E1B16"/><path transform="translate(125.59 62) scale(0.022 -0.022)" d="M626 0H460L331 248H243V114H313V0H39V114H109V536H39V650H333Q454 650 519.0 600.5Q584 551 584 453Q584 387 550.0 342.5Q516 298 460 276L548 114H626ZM440 450Q440 499 411.0 517.5Q382 536 309 536H243V354H307Q384 354 412.0 379.0Q440 404 440 450Z" fill="#1E1B16"/><path transform="translate(145.62 62) scale(0.022 -0.022)" d="M313 0H39V114H109V536H39V650H313V536H243V114H313Z" fill="#1E1B16"/><line x1="66" y1="72" x2="134" y2="72" stroke="#1E1B16" stroke-width="1.2"/><path transform="translate(70.60 166) scale(0.112 -0.112)" d="M496 201Q496 83 422.0 36.0Q348 -11 246 -11Q138 -11 84.0 37.5Q30 86 29 168L138 201Q138 166 162.0 134.5Q186 103 245 103Q302 103 326.5 133.5Q351 164 351 201Q351 264 304.5 283.0Q258 302 198 302Q174 302 150.0 300.0Q126 298 104 297L61 338V651H461L480 468L366 458L348 537H185V410Q194 411 203.5 411.0Q213 411 222 411Q292 411 355.0 393.5Q418 376 457.0 331.0Q496 286 496 201Z" fill="#B5762A"/></svg>
+    <p class="eyebrow">Not five animals. Five experiences.</p>
+    <h1>Do all five. Get your stamp.</h1>
+    <p class="muted">Tick off the five as you go. Stamp your area while you are in one of the Safari Five areas. Send it in, and we send back your Completed stamp and add your name to the wall.</p>
+  </div>
+  <form id="fReg" novalidate>
+    <label class="f" for="first">First name</label><input type="text" id="first" autocomplete="given-name" required>
+    <label class="f" for="last">Last name</label><input type="text" id="last" autocomplete="family-name" required>
+    <label class="f" for="email">Email</label><input type="email" id="email" autocomplete="email" required>
+    <label class="f" for="home">Home country</label><input type="text" id="home" list="countries" autocomplete="country-name" required>
+    <datalist id="countries"><option value="United States"><option value="United Kingdom"><option value="Canada"><option value="Australia"><option value="New Zealand"><option value="Ireland"><option value="Germany"><option value="Netherlands"><option value="Belgium"><option value="France"><option value="Switzerland"><option value="Austria"><option value="Italy"><option value="Spain"><option value="Portugal"><option value="Sweden"><option value="Norway"><option value="Denmark"><option value="Finland"><option value="South Africa"><option value="Zambia"><option value="Zimbabwe"><option value="Botswana"><option value="Kenya"><option value="Tanzania"><option value="Namibia"><option value="Israel"><option value="United Arab Emirates"><option value="India"><option value="Singapore"><option value="Hong Kong"><option value="Japan"><option value="China"><option value="Brazil"><option value="Mexico"><option value="Argentina"></datalist>
+    <label class="consent"><input type="checkbox" id="news"> <span>Send me occasional Safari Five news. (We will always email your stamp, whatever you choose here.)</span></label>
+    <label class="consent"><input type="checkbox" id="agree"> <span>I agree to the <a href="../terms.html" target="_blank" rel="noopener" style="color:var(--ochre-d)">Terms of use</a>. I understand that safari activities carry real risks, that I take part at my own risk and under the direction of my guide and camp, and that the Safari Five app is only a checklist.</span></label>
+    <p class="note bad" id="regErr" hidden></p>
+    <button class="btn" type="submit">Start my Safari Five</button>
+    <p class="muted center" style="margin-top:12px;font-size:13px">On the wall we show only your first name, last initial, the month and year you finished, the country you did it in and your home country. Your location is checked on your phone and never leaves it: we only ever receive the name of the Safari Five area. Every entry is reviewed and may be declined or removed. <a href="../privacy.html" style="color:var(--ochre-d)">Privacy</a> &middot; <a href="../terms.html" style="color:var(--ochre-d)">Terms</a></p>
+  </form>
+</section>
+
+<!-- 2. Checklist -->
+<section class="screen" id="sList" hidden>
+  <div class="hello"><h2 id="hi">Your Safari Five</h2><span class="count"><span id="nDone">0</span> of 5</span></div>
+  <div class="card"><ol class="five" id="five"></ol></div>
+  <details class="card trip" id="trip"><summary>About your trip <span class="opt">(optional)</span></summary>
+    <p class="muted" style="font-size:13.5px;margin:8px 0 10px">Help us celebrate the camps and guides behind the Safari Five. Skip it if you like. This is never shown in the Hall.</p>
+    <label class="f" for="camp">Where did you stay?</label><input type="text" id="camp" list="campList" autocomplete="off" placeholder="Start typing a camp name" aria-describedby="campHint">
+    <p class="muted" id="campHint" style="font-size:12.5px;margin:-6px 0 12px">Not on the list? Just type the camp&#x27;s name.</p>
+    <datalist id="campList"><option value="Africa on Foot Camp">Greater Kruger</option><option value="Africa on Foot Wilderness Trails">Greater Kruger</option><option value="Anantara Tented Camp Kafue River">Kafue</option><option value="Andersson&#x27;s at Ongava">Etosha private reserves</option><option value="Basecamp Samburu">Samburu</option><option value="Beho Beho">Nyerere (Selous)</option><option value="Big Lagoon Camp">South Luangwa</option><option value="Bilimungwe Bushcamp">South Luangwa</option><option value="Bomani Tented Lodge">Hwange</option><option value="Borana Lodge">Laikipia</option><option value="Bumi Hills Safari Lodge">Matusadona</option><option value="Bushman Wilderness Trail">Greater Kruger</option><option value="Camelthorn Lodge">Hwange</option><option value="Camp Chitake">Mana Pools</option><option value="Camp Hwange">Hwange</option><option value="Camp Mana">Mana Pools</option><option value="Camp Zambezi">Mana Pools</option><option value="Chada Katavi">Katavi</option><option value="Chamilandu Bushcamp">South Luangwa</option><option value="Changa Safari Camp">Matusadona</option><option value="Charlie Ruaha">Ruaha</option><option value="Charlie Southwest Serengeti">Serengeti</option><option value="Chiawa Camp">Lower Zambezi</option><option value="Chibembe Wildlife Reserve">South Luangwa</option><option value="Chichele Presidential Lodge">South Luangwa</option><option value="Chikoko Tree Camp">South Luangwa</option><option value="Chikunto Safari Lodge">South Luangwa</option><option value="Chikwenya Camp">Mana Pools</option><option value="Chimwala Bush Camp">Liwonde</option><option value="Chindeni Bushcamp">South Luangwa</option><option value="Chinzombo">South Luangwa</option><option value="Chisa Busanga Camp">Kafue</option><option value="Chula Island">Lower Zambezi</option><option value="Davison&#x27;s Camp">Hwange</option><option value="Desert Rhino Camp">Damaraland</option><option value="Dulini Anabezi">Lower Zambezi</option><option value="El Karama">Laikipia</option><option value="Elephant Pepper Camp">Masai Mara</option><option value="Elsa&#x27;s Kopje">Meru</option><option value="Encounter by Ongava">Etosha private reserves</option><option value="Expedition Camp">Gorongosa</option><option value="Flatdogs Camp">South Luangwa</option><option value="Hideaways Mhara River Camp">Mana Pools</option><option value="Hippo Lodge">Kafue</option><option value="Honeyguide Explorer Camp">Greater Kruger</option><option value="Hwange Bush Camp">Hwange</option><option value="Ikuka Safari Camp">Ruaha</option><option value="Ila Safari Lodge">Kafue</option><option value="Ingwe Pan Camp">Mana Pools</option><option value="Island Bush Camp">South Luangwa</option><option value="Ithumba Camp">Tsavo</option><option value="Jabali Ridge">Ruaha</option><option value="Jock Safari Lodge">Greater Kruger</option><option value="John&#x27;s Camp">Mana Pools</option><option value="Kafue River Lodge">Kafue</option><option value="Kafunta River Lodge">South Luangwa</option><option value="KaingU Safari Lodge">Kafue</option><option value="Kaingo Camp">South Luangwa</option><option value="Kakuli">South Luangwa</option><option value="Kanana Camp">Okavango Delta</option><option value="Kanga Expeditions">Mana Pools</option><option value="Kapamba Bushcamp">South Luangwa</option><option value="Karisia Walking Safaris">Laikipia</option><option value="Kavinga Safari Camp">Mana Pools</option><option value="Kazile Island Lodge">Zambezi Region</option><option value="Kichaka Wild and Fly Camp">Ruaha</option><option value="Kichaka Zumbua">Ruaha</option><option value="Kicheche Laikipia">Laikipia</option><option value="Kigelia Ruaha">Ruaha</option><option value="Kokoko">Ruaha</option><option value="Konkamoya Lodge">Kafue</option><option value="Kuro Tarangire">Tarangire</option><option value="Kutali">Lower Zambezi</option><option value="Kutandala Camp">North Luangwa</option><option value="Kuthengo Camp">Liwonde</option><option value="Kuyenda Bushcamp">South Luangwa</option><option value="LABA Siwandu">Nyerere (Selous)</option><option value="Laba Laba Jongomero">Ruaha</option><option value="Laikipia Wilderness Camp">Laikipia</option><option value="Lake Manze Camp">Nyerere (Selous)</option><option value="Lamai Serengeti">Serengeti</option><option value="Lebala Camp">Linyanti</option><option value="Leleshwa">Masai Mara</option><option value="Lemala Nanyukie">Serengeti</option><option value="Lewa Safari Camp">Laikipia</option><option value="Linkwasha Camp">Hwange</option><option value="Lion Camp">South Luangwa</option><option value="Little Mana Sands">Mana Pools</option><option value="Little Ruckomechi">Mana Pools</option><option value="Little Vundu">Mana Pools</option><option value="Lolebezi">Lower Zambezi</option><option value="Luambe Camp">Luambe</option><option value="Luangwa River Camp">South Luangwa</option><option value="Lunga Kikuji Camp">Kafue</option><option value="Luwi Bush Camp">South Luangwa</option><option value="Lwenge River Camp">Kafue</option><option value="Machaba Camp">Okavango Delta</option><option value="Mana Pools Safari Lodge">Mana Pools</option><option value="Mana River Camp">Mana Pools</option><option value="Mana Sands">Mana Pools</option><option value="Mathikithi Wilderness Trail">Greater Kruger</option><option value="Mawimbi Bush Camp">Kafue</option><option value="Mayukuyuku Bush Camp">Kafue</option><option value="McBride&#x27;s Camp">Kafue</option><option value="Mchenja">South Luangwa</option><option value="Mfuwe Lodge">South Luangwa</option><option value="Mkulumadzi">Majete</option><option value="Molori Mashuma">Mana Pools</option><option value="Mpala Jena Camp">Zambezi National Park</option><option value="Mukambi Fig Tree Bush Camp">Kafue</option><option value="Mukambi Plains Camp">Kafue</option><option value="Mukambi Safari Lodge">Kafue</option><option value="Mumbulu Safari Camp">South Luangwa</option><option value="Mundulea Bush Camp">Mundulea Reserve</option><option value="Musekese Camp">Kafue</option><option value="Muzimu Lodge">Gorongosa</option><option value="Mvuu Camp">Liwonde</option><option value="Mvuu Lodge">Liwonde</option><option value="Mwagusi Safari Camp">Ruaha</option><option value="Mwaleshi Camp">North Luangwa</option><option value="Mwamba Bush Camp">South Luangwa</option><option value="Naboisho Camp">Masai Mara</option><option value="Nambwa Tented Lodge">Zambezi Region</option><option value="Nanzhila Lake Camp">Kafue</option><option value="Nanzhila Plains Safari Camp">Kafue</option><option value="Napi Wilderness Trail">Greater Kruger</option><option value="Ndutu Safari Lodge">Ngorongoro Conservation Area</option><option value="Nehimba Lodge">Hwange</option><option value="Nkasa Lupala Tented Lodge">Zambezi Region</option><option value="Nkonzi Camp">South Luangwa</option><option value="Nkwali">South Luangwa</option><option value="Northern Tuli Walking Trail">Northern Tuli</option><option value="Nsefu Camp">South Luangwa</option><option value="Nsolo">South Luangwa</option><option value="Ntemwa-Busanga Camp">Kafue</option><option value="Nyalaland Wilderness Trail">Greater Kruger</option><option value="Nyamatusi Camp">Mana Pools</option><option value="Nyamatusi Mahogany">Mana Pools</option><option value="Ol Malo">Laikipia</option><option value="Old Mondoro">Lower Zambezi</option><option value="Olifants Wilderness Trail">Greater Kruger</option><option value="Oliver&#x27;s Camp">Tarangire</option><option value="Ongava Lodge">Etosha private reserves</option><option value="Onguma Camp Kala">Etosha private reserves</option><option value="Onguma Tented Camp">Etosha private reserves</option><option value="Onguma The Fort">Etosha private reserves</option><option value="Onguma Trails Camp">Etosha private reserves</option><option value="Pafuri Walking Trails – Hutwini Camp">Greater Kruger</option><option value="Pafuri Walking Trails – Nkula Camp">Greater Kruger</option><option value="Plains Camp">Greater Kruger</option><option value="Puku Ridge">South Luangwa</option><option value="Pungwe Safari Camp">Greater Kruger</option><option value="Robin Pope Safaris Mobile Walking Safari">South Luangwa</option><option value="Roho ya Selous">Nyerere (Selous)</option><option value="Ruaha River Lodge">Ruaha</option><option value="Ruckomechi Camp">Mana Pools</option><option value="Safarihoek Lodge">Etosha private reserves</option><option value="Sand Rivers">Nyerere (Selous)</option><option value="Sapi Explorers Camp">Mana Pools</option><option value="Saruni Rhino">Samburu</option><option value="Sasaab">Samburu</option><option value="Sausage Tree Camp">Lower Zambezi</option><option value="Serengeti Walking Mobile Camp">Serengeti</option><option value="Serian Serengeti">Serengeti</option><option value="Serian The Original">Masai Mara</option><option value="Shawa Luangwa">South Luangwa</option><option value="Shinde Footsteps">Okavango Delta</option><option value="Simbavati Trails Camp">Greater Kruger</option><option value="Singita Boulders Lodge">Greater Kruger</option><option value="Singita Pamushana Lodge">Malilangwe Wildlife Reserve</option><option value="Somalisa Expeditions">Hwange</option><option value="Sosian">Laikipia</option><option value="Stretch Ferreira Safaris Camp">Mana Pools</option><option value="Sungani Lodge">South Luangwa</option><option value="Sweni Wilderness Trail">Greater Kruger</option><option value="Tafika">South Luangwa</option><option value="Takwela Camp">North Luangwa</option><option value="Tanda Tula Field Camp">Greater Kruger</option><option value="Tanda Tula Safari Camp">Greater Kruger</option><option value="Tembo Plains Camp">Mana Pools</option><option value="Tena Tena">South Luangwa</option><option value="Thawale Lodge">Majete</option><option value="The Hide">Hwange</option><option value="The Villas at KuKaya">South Luangwa</option><option value="Three Rivers Camp">South Luangwa</option><option value="Time + Tide Chongwe Camp">Lower Zambezi</option><option value="Tongole Wilderness Lodge">Nkhotakota</option><option value="Usangu Expedition Camp">Ruaha</option><option value="Verney&#x27;s Camp">Hwange</option><option value="Vundu Camp">Mana Pools</option><option value="WalkMashatu">Northern Tuli</option><option value="Walking with Giants">Tsavo</option><option value="Wayo Little Green Camp">Serengeti</option><option value="Wayo Serengeti Green Camp">Serengeti</option><option value="Wayo Walking Camp">Serengeti</option><option value="Wilderness Busanga Bush Camp">Kafue</option><option value="Wilderness Shumba">Kafue</option><option value="Wolhuter Wilderness Trail">Greater Kruger</option><option value="Zungulila Bushcamp">South Luangwa</option><option value="andBeyond Ngala Tented Camp">Greater Kruger</option><option value="ol Donyo Lodge">Chyulu Hills</option></datalist>
+    <label class="f" for="guide">Which guide made it happen?</label><input type="text" id="guide" autocomplete="off" placeholder="Your guide's name">
+  </details>
+
+  <div class="card">
+    <div class="stamp">
+      <div class="pin" id="pin"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" fill="#F2EADB"/></svg></div>
+      <div class="stamp-t" id="stampT"><strong>Area stamp</strong>While you are in a Safari Five area, tap below. Your phone checks which area you are in, with no signal needed. Your location never leaves your phone and is not saved; we only receive the area name.</div>
+    </div>
+    <button class="btn dark" type="button" id="bStamp">Stamp my area</button>
+    <p class="note" id="stampMsg" hidden></p>
+  </div>
+
+  <p class="muted center" style="font-size:12.5px;margin:6px 0 10px">Safety first: always follow your guide, never take a risk to tick one off, and keep your phone away on walks.</p>
+  <div class="demo" id="demo" hidden>Preview only: location and sending are simulated here. <button type="button" id="bDemo">Simulate a stamp</button></div>
+
+  <button class="btn" type="button" id="bSend" disabled>Send my completion</button>
+  <p class="muted center" id="sendHint" style="margin-top:10px;font-size:13.5px">Tick all five and stamp your area to send.</p>
+  <p class="note" id="queued" hidden>Saved on your phone. It will send by itself the next time you have signal.</p>
+
+  <div class="small-links"><a href="../the-five.html">What counts?</a><a href="../hall-of-the-five.html">The Hall of the Five</a><a href="../what-its-about.html">What it's about</a><button type="button" id="bEdit">Edit my details</button></div>
+  <p class="muted center install" id="installTip" hidden>Tip: add this app to your home screen so it works in the bush.</p>
+</section>
+
+<!-- 3. Completed -->
+<section class="screen center" id="sDone" hidden>
+  <div id="badgeWrap"><svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 200 200" role="img" aria-label="The Safari Five, Completed"><defs><path id="ubt" d="M 26 100 A 74 74 0 0 1 174 100"/><path id="ubb" d="M 19 100 A 81 81 0 0 0 181 100"/></defs><circle cx="100" cy="100" r="96" fill="none" stroke="#1E1B16" stroke-width="3"/><circle cx="100" cy="100" r="60" fill="none" stroke="#1E1B16" stroke-width="1.5"/><text font-family="Zilla Slab, serif" font-weight="700" font-size="15" letter-spacing="4" fill="#1E1B16" text-anchor="middle"><textPath href="#ubt" startOffset="50%">THE SAFARI FIVE</textPath></text><text font-family="Zilla Slab, serif" font-weight="700" font-size="15" letter-spacing="4" fill="#B5762A" text-anchor="middle"><textPath href="#ubb" startOffset="50%">COMPLETED</textPath></text><g fill="#1E1B16"><circle cx="22" cy="100" r="2.6"/><circle cx="178" cy="100" r="2.6"/></g><g stroke="#1E1B16" stroke-width="6" stroke-linecap="round"><line x1="79" y1="76" x2="79" y2="124"/><line x1="93" y1="76" x2="93" y2="124"/><line x1="107" y1="76" x2="107" y2="124"/><line x1="121" y1="76" x2="121" y2="124"/></g><line x1="68" y1="118" x2="132" y2="82" stroke="#B5762A" stroke-width="6" stroke-linecap="round"/></svg></div>
+  <p class="who" id="who"></p>
+  <p class="where" id="whereTxt"></p>
+  <p class="rank" id="rank"></p>
+  <p>You did the Safari Five. Your stamp is on its way to your inbox, and your name will go up in the Hall of the Five.</p>
+  <div class="row2"><button class="btn" type="button" id="bSave">Save my stamp</button><button class="btn ghost" type="button" id="bShare">Share</button></div>
+  <a class="btn ghost" href="../hall-of-the-five.html">See the Hall of the Five</a>
+  <p class="muted" style="margin-top:16px">Share it with <strong>#SafariFive</strong>.</p>
+  <div class="small-links"><button type="button" id="bAgain">Start a new Safari Five</button></div>
+</section>
+</main>
+
+<script>
+try{history.scrollRestoration='manual'}catch(e){}window.scrollTo(0,0);
+var FIVE=[{"slug": "bushcamp", "n": 1, "name": "A true bushcamp", "line": "The foundation that makes everything else possible."}, {"slug": "walking-safari", "n": 2, "name": "A walking safari", "line": "In a vehicle, you see Africa. On foot, you feel it."}, {"slug": "conservation", "n": 3, "name": "A conservation story you can see", "line": "Stronger communities. More wildlife."}, {"slug": "big-three", "n": 4, "name": "The Big Three carnivores", "line": "Lion, leopard and wild dog, in one place."}, {"slug": "night-drive", "n": 5, "name": "A night drive", "line": "Africa after dark, with a sundowner first."}];
+var AREAS=[{"name": "Linyanti and Selinda, Botswana", "lat": -18.45, "lng": 23.75, "km": 85}, {"name": "Okavango Delta, Botswana", "lat": -19.35, "lng": 22.95, "km": 130}, {"name": "Laikipia, Kenya", "lat": 0.35, "lng": 36.95, "km": 90}, {"name": "Maasai Mara and conservancies, Kenya", "lat": -1.45, "lng": 35.15, "km": 75}, {"name": "Greater Kruger, South Africa", "lat": -23.9, "lng": 31.55, "km": 200}, {"name": "Nyerere (Selous), Tanzania", "lat": -8.6, "lng": 37.8, "km": 150}, {"name": "Ruaha, Tanzania", "lat": -7.6, "lng": 34.9, "km": 120}, {"name": "Serengeti, Tanzania", "lat": -2.35, "lng": 34.85, "km": 130}, {"name": "Kafue, Zambia", "lat": -14.9, "lng": 25.95, "km": 170}, {"name": "Lower Zambezi, Zambia", "lat": -15.45, "lng": 29.65, "km": 70}, {"name": "North Luangwa, Zambia", "lat": -11.85, "lng": 32.15, "km": 70}, {"name": "South Luangwa, Zambia", "lat": -13.05, "lng": 31.75, "km": 115}, {"name": "Gonarezhou, Zimbabwe", "lat": -21.65, "lng": 31.75, "km": 70}, {"name": "Hwange, Zimbabwe", "lat": -18.75, "lng": 26.6, "km": 110}, {"name": "Mana Pools, Zimbabwe", "lat": -15.8, "lng": 29.35, "km": 60}, {"name": "Luambe, Zambia", "lat": -12.45, "lng": 32.15, "km": 30, "other": true}, {"name": "Matusadona, Zimbabwe", "lat": -16.9, "lng": 28.5, "km": 45, "other": true}, {"name": "Zambezi National Park, Zimbabwe", "lat": -17.85, "lng": 25.65, "km": 30, "other": true}, {"name": "Malilangwe, Zimbabwe", "lat": -21.05, "lng": 31.95, "km": 30, "other": true}, {"name": "Northern Tuli, Botswana", "lat": -22.1, "lng": 29.1, "km": 35, "other": true}, {"name": "Zambezi Region, Namibia", "lat": -18.1, "lng": 23.45, "km": 70, "other": true}, {"name": "Etosha and its private reserves, Namibia", "lat": -19.05, "lng": 16.3, "km": 140, "other": true}, {"name": "Mundulea, Namibia", "lat": -19.65, "lng": 17.4, "km": 30, "other": true}, {"name": "Damaraland, Namibia", "lat": -19.9, "lng": 13.85, "km": 120, "other": true}, {"name": "Gorongosa, Mozambique", "lat": -18.85, "lng": 34.45, "km": 55, "other": true}, {"name": "Liwonde, Malawi", "lat": -14.85, "lng": 35.33, "km": 30, "other": true}, {"name": "Majete, Malawi", "lat": -15.95, "lng": 34.65, "km": 30, "other": true}, {"name": "Nkhotakota, Malawi", "lat": -12.85, "lng": 34.1, "km": 40, "other": true}, {"name": "Katavi, Tanzania", "lat": -6.9, "lng": 31.2, "km": 60, "other": true}, {"name": "Tarangire, Tanzania", "lat": -4.0, "lng": 36.0, "km": 45, "other": true}, {"name": "Ngorongoro, Tanzania", "lat": -3.2, "lng": 35.5, "km": 45, "other": true}, {"name": "Samburu, Kenya", "lat": 0.6, "lng": 37.5, "km": 40, "other": true}, {"name": "Meru, Kenya", "lat": 0.1, "lng": 38.2, "km": 40, "other": true}, {"name": "Tsavo, Kenya", "lat": -3.0, "lng": 38.7, "km": 130, "other": true}, {"name": "Chyulu Hills, Kenya", "lat": -2.6, "lng": 37.9, "km": 35, "other": true}];
+var LIVE=/(^|\.)safarifive\.com$/.test(location.hostname)||/netlify\.app$/.test(location.hostname);
+var K='safarifive-app-v1',S={};
+try{S=JSON.parse(localStorage.getItem(K))||{}}catch(e){}
+S.ticks=S.ticks||{};S.stamps=S.stamps||[];
+if(S.outbox)S.outbox.forEach(function(o){delete o.data.stamp_lat;delete o.data.stamp_lng;delete o.data.stamp_accuracy_m});
+if(S.stamps)S.stamps=S.stamps.filter(function(x){return x.area}).map(function(x){return {area:x.area,at:x.at}});
+function save(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}}
+function $(id){return document.getElementById(id)}
+function show(id){['sWelcome','sList','sDone'].forEach(function(x){$(x).hidden=x!==id});window.scrollTo(0,0)}
+var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+function monthOf(iso){var d=new Date(iso);return MONTHS[d.getMonth()]+' '+d.getFullYear()}
+function shortName(){return S.first.trim()+' '+S.last.trim().charAt(0).toUpperCase()+'.'}
+
+/* ---- geography ---- */
+function km(a,b,c,d){var R=6371,r=Math.PI/180,x=(c-a)*r,y=(d-b)*r,h=Math.sin(x/2)*Math.sin(x/2)+Math.cos(a*r)*Math.cos(c*r)*Math.sin(y/2)*Math.sin(y/2);return 2*R*Math.asin(Math.sqrt(h))}
+function areaFor(lat,lng){var best=null;AREAS.forEach(function(a){var d=km(lat,lng,a.lat,a.lng);if(d<=a.km&&(!best||d/a.km<best.d)){best={a:a,d:d/a.km}}});return best&&best.a}
+function goodStamp(){for(var i=S.stamps.length-1;i>=0;i--)if(S.stamps[i].area)return S.stamps[i];return null}
+
+/* ---- network: Netlify Forms, queued when offline ---- */
+function enc(o){return Object.keys(o).map(function(k){return encodeURIComponent(k)+'='+encodeURIComponent(o[k]==null?'':o[k])}).join('&')}
+function queue(form,data){S.outbox=S.outbox||[];S.outbox.push({form:form,data:data});save();flush()}
+function flush(){
+  if(!S.outbox||!S.outbox.length)return;
+  if(!LIVE){S.outbox=[];save();return}
+  if(!navigator.onLine)return;
+  var item=S.outbox[0],body=Object.assign({'form-name':item.form},item.data);
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:enc(body)}).then(function(r){
+    if(r.ok){S.outbox.shift();if(item.form==='completion'){S.sent=true;$('queued').hidden=true}save();flush()}
+  }).catch(function(){});
+}
+window.addEventListener('online',flush);
+
+/* ---- welcome ---- */
+$('fReg').addEventListener('submit',function(e){
+  e.preventDefault();
+  var f=$('first').value.trim(),l=$('last').value.trim(),m=$('email').value.trim(),h=$('home').value.trim(),err=$('regErr');
+  if(!f||!l||!h||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m)){err.textContent='Please add your first name, last name, a valid email and your home country.';err.hidden=false;return}
+  if(!$('agree').checked){err.textContent='Please tick the box to agree to the Terms of use.';err.hidden=false;return}
+  err.hidden=true;var isNew=!S.email;S.first=f;S.last=l;S.email=m;S.home=h;S.news=$('news').checked;S.agreed=S.agreed||new Date().toISOString();save();
+  if(isNew)queue('app-registration',{first_name:f,last_name:l,email:m,home_country:h,news:S.news?'yes':'no',registered:new Date().toISOString(),agreed_terms:S.agreed});
+  renderList();show('sList');
+});
+$('bEdit').addEventListener('click',function(){$('first').value=S.first||'';$('last').value=S.last||'';$('email').value=S.email||'';$('home').value=S.home||'';$('news').checked=!!S.news;$('agree').checked=!!S.agreed;show('sWelcome')});
+
+/* ---- checklist ---- */
+function renderList(){
+  $('hi').textContent=S.first?S.first+'’s Safari Five':'Your Safari Five';
+  $('five').innerHTML=FIVE.map(function(f){var t=S.ticks[f.slug];
+    return '<li><label><input type="checkbox" data-k="'+f.slug+'"'+(t?' checked':'')+'><span class="n">'+f.n+'</span><span class="t"><strong>'+f.name+'</strong><small>'+(t?'Done '+new Date(t).toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'}):f.line)+'</small></span></label></li>'}).join('');
+  [].forEach.call(document.querySelectorAll('#five input'),function(x){x.addEventListener('change',function(){
+    var f=FIVE.filter(function(y){return y.slug===x.dataset.k})[0],sm=x.parentNode.querySelector('small');
+    if(x.checked){S.ticks[f.slug]=new Date().toISOString();sm.textContent='Done '+new Date().toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'})}
+    else{delete S.ticks[f.slug];sm.textContent=f.line}
+    if(S.sent){S.sent=false;S.completed=null}save();renderStamp()})});
+  renderStamp();
+}
+var CAMPS=[["Africa on Foot Camp", "Africa on Foot"], ["Africa on Foot Wilderness Trails", "Africa on Foot"], ["Anantara Tented Camp Kafue River", "Anantara"], ["Andersson's at Ongava", "Ongava"], ["Basecamp Samburu", "Saruni Basecamp"], ["Beho Beho", ""], ["Big Lagoon Camp", "Remote Africa Safaris"], ["Bilimungwe Bushcamp", "The Bushcamp Company"], ["Bomani Tented Lodge", "Imvelo Safari Lodges"], ["Borana Lodge", ""], ["Bumi Hills Safari Lodge", "African Bush Camps"], ["Bushman Wilderness Trail", "SANParks (South African National Parks)"], ["Camelthorn Lodge", "Imvelo Safari Lodges"], ["Camp Chitake", "Natureways Safaris"], ["Camp Hwange", ""], ["Camp Mana", "Sunpath Safaris"], ["Camp Zambezi", "Natureways Safaris"], ["Chada Katavi", "Nomad Tanzania"], ["Chamilandu Bushcamp", "The Bushcamp Company"], ["Changa Safari Camp", ""], ["Charlie Ruaha", "Nomad Tanzania"], ["Charlie Southwest Serengeti", "Nomad Tanzania"], ["Chiawa Camp", "Chiawa Safaris"], ["Chibembe Wildlife Reserve", "Chibembe Wildlife Reserve (The Safari Heritage Collection)"], ["Chichele Presidential Lodge", "Zambia Luxury Lodge Collection"], ["Chikoko Tree Camp", "Remote Africa Safaris"], ["Chikunto Safari Lodge", "Chikunto Safaris"], ["Chikwenya Camp", "Wilderness"], ["Chimwala Bush Camp", "African Parks"], ["Chindeni Bushcamp", "The Bushcamp Company"], ["Chinzombo", "Time + Tide"], ["Chisa Busanga Camp", "Green Safaris"], ["Chula Island", ""], ["Davison's Camp", "Wilderness"], ["Desert Rhino Camp", "Wilderness"], ["Dulini Anabezi", "Dulini"], ["El Karama", ""], ["Elephant Pepper Camp", "Elewana Collection"], ["Elsa's Kopje", "Elewana Collection"], ["Encounter by Ongava", "Ongava"], ["Expedition Camp", "Gorongosa Safaris"], ["Flatdogs Camp", ""], ["Hideaways Mhara River Camp", "Hideaways"], ["Hippo Lodge", ""], ["Honeyguide Explorer Camp", "Honeyguide Tented Safari Camps"], ["Hwange Bush Camp", ""], ["Ikuka Safari Camp", ""], ["Ila Safari Lodge", "Green Safaris"], ["Ingwe Pan Camp", "Machaba Safaris"], ["Island Bush Camp", "Kafunta Safaris"], ["Ithumba Camp", "Sheldrick Wildlife Trust"], ["Jabali Ridge", "Asilia"], ["Jock Safari Lodge", ""], ["John's Camp", "Robin Pope Safaris"], ["Kafue River Lodge", "Everwild"], ["Kafunta River Lodge", "Kafunta Safaris"], ["KaingU Safari Lodge", ""], ["Kaingo Camp", "Shenton Safaris"], ["Kakuli", "Time + Tide"], ["Kanana Camp", "Ker & Downey Botswana"], ["Kanga Expeditions", "African Bush Camps"], ["Kapamba Bushcamp", "The Bushcamp Company"], ["Karisia Walking Safaris", "Karisia"], ["Kavinga Safari Camp", ""], ["Kazile Island Lodge", ""], ["Kichaka Wild and Fly Camp", "Kichaka"], ["Kichaka Zumbua", "Kichaka"], ["Kicheche Laikipia", "Kicheche"], ["Kigelia Ruaha", "Nomad Tanzania"], ["Kokoko", "Asilia"], ["Konkamoya Lodge", ""], ["Kuro Tarangire", "Nomad Tanzania"], ["Kutali", ""], ["Kutandala Camp", "Classic Zambia Safaris"], ["Kuthengo Camp", "Robin Pope Safaris"], ["Kuyenda Bushcamp", "The Bushcamp Company"], ["LABA Siwandu", "LABA LABA"], ["Laba Laba Jongomero", "LABA LABA"], ["Laikipia Wilderness Camp", ""], ["Lake Manze Camp", ""], ["Lamai Serengeti", "Nomad Tanzania"], ["Lebala Camp", "Kwando Safaris"], ["Leleshwa", ""], ["Lemala Nanyukie", "Lemala"], ["Lewa Safari Camp", "Elewana Collection"], ["Linkwasha Camp", "Wilderness"], ["Lion Camp", "Lion Camp (The Safari Heritage Collection)"], ["Little Mana Sands", "Independently owned"], ["Little Ruckomechi", "Wilderness"], ["Little Vundu", "Owner-run"], ["Lolebezi", "African Bush Camps"], ["Luambe Camp", "Luambe Conservation"], ["Luangwa River Camp", "Robin Pope Safaris"], ["Lunga Kikuji Camp", "Everwild"], ["Luwi Bush Camp", "Time + Tide"], ["Lwenge River Camp", "Classic Zambia"], ["Machaba Camp", ""], ["Mana Pools Safari Lodge", "Zambezi Cruise and Safaris"], ["Mana River Camp", "Machaba Safaris"], ["Mana Sands", "Independently owned"], ["Mathikithi Wilderness Trail", "SANParks (South African National Parks)"], ["Mawimbi Bush Camp", ""], ["Mayukuyuku Bush Camp", "Kafue Camps & Safaris"], ["McBride's Camp", ""], ["Mchenja", "Time + Tide"], ["Mfuwe Lodge", "The Bushcamp Company"], ["Mkulumadzi", "Robin Pope Safaris"], ["Molori Mashuma", "Molori"], ["Mpala Jena Camp", "Great Plains"], ["Mukambi Fig Tree Bush Camp", "Mukambi Safaris"], ["Mukambi Plains Camp", "Mukambi Safaris"], ["Mukambi Safari Lodge", "Mukambi Safaris"], ["Mumbulu Safari Camp", "Mambwe Safaris"], ["Mundulea Bush Camp", "Mundulea Reserve"], ["Musekese Camp", "Classic Zambia"], ["Muzimu Lodge", "Turismo da Gorongosa"], ["Mvuu Camp", "Central African Wilderness Safaris"], ["Mvuu Lodge", "Central African Wilderness Safaris"], ["Mwagusi Safari Camp", ""], ["Mwaleshi Camp", "Remote Africa Safaris"], ["Mwamba Bush Camp", "Shenton Safaris"], ["Naboisho Camp", "Asilia"], ["Nambwa Tented Lodge", ""], ["Nanzhila Lake Camp", "Everwild"], ["Nanzhila Plains Safari Camp", "Everwild"], ["Napi Wilderness Trail", "SANParks (South African National Parks)"], ["Ndutu Safari Lodge", ""], ["Nehimba Lodge", "Imvelo Safari Lodges"], ["Nkasa Lupala Tented Lodge", ""], ["Nkonzi Camp", ""], ["Nkwali", "Robin Pope Safaris"], ["Northern Tuli Walking Trail", "Safari Frank"], ["Nsefu Camp", "Robin Pope Safaris"], ["Nsolo", "Time + Tide"], ["Ntemwa-Busanga Camp", "Classic Zambia"], ["Nyalaland Wilderness Trail", "SANParks (South African National Parks)"], ["Nyamatusi Camp", "African Bush Camps"], ["Nyamatusi Mahogany", "African Bush Camps"], ["Ol Malo", ""], ["Old Mondoro", "Chiawa Safaris"], ["Olifants Wilderness Trail", "SANParks (South African National Parks)"], ["Oliver's Camp", "Asilia"], ["Ongava Lodge", "Ongava"], ["Onguma Camp Kala", "Onguma"], ["Onguma Tented Camp", "Onguma"], ["Onguma The Fort", "Onguma"], ["Onguma Trails Camp", "Onguma"], ["Pafuri Walking Trails – Hutwini Camp", "RETURN Africa"], ["Pafuri Walking Trails – Nkula Camp", "RETURN Africa"], ["Plains Camp", "Seolo Africa (Rhino Walking Safaris)"], ["Puku Ridge", "Zambia Luxury Lodge Collection"], ["Pungwe Safari Camp", ""], ["Robin Pope Safaris Mobile Walking Safari", "Robin Pope Safaris"], ["Roho ya Selous", "Asilia"], ["Ruaha River Lodge", "Foxes Safari Camps"], ["Ruckomechi Camp", "Wilderness"], ["Safarihoek Lodge", ""], ["Sand Rivers", "Nomad Tanzania"], ["Sapi Explorers Camp", "Great Plains"], ["Saruni Rhino", "Saruni"], ["Sasaab", "The Safari Collection"], ["Sausage Tree Camp", ""], ["Serengeti Walking Mobile Camp", ""], ["Serian Serengeti", "Alex Walker's Serian"], ["Serian The Original", "Alex Walker's Serian"], ["Shawa Luangwa", "Green Safaris"], ["Shinde Footsteps", "Ker & Downey"], ["Simbavati Trails Camp", "Simbavati"], ["Singita Boulders Lodge", "Singita"], ["Singita Pamushana Lodge", "Singita"], ["Somalisa Expeditions", "African Bush Camps"], ["Sosian", ""], ["Stretch Ferreira Safaris Camp", "Stretch Ferreira Safaris"], ["Sungani Lodge", "Owner-run"], ["Sweni Wilderness Trail", "SANParks (South African National Parks)"], ["Tafika", "Remote Africa Safaris"], ["Takwela Camp", "Remote Africa Safaris"], ["Tanda Tula Field Camp", "Tanda Tula"], ["Tanda Tula Safari Camp", "Tanda Tula"], ["Tembo Plains Camp", "Great Plains"], ["Tena Tena", "Robin Pope Safaris"], ["Thawale Lodge", "African Parks"], ["The Hide", "Independent, owner-run"], ["The Villas at KuKaya", "The Bushcamp Company"], ["Three Rivers Camp", "Kafunta Safaris"], ["Time + Tide Chongwe Camp", "Time + Tide"], ["Tongole Wilderness Lodge", ""], ["Usangu Expedition Camp", "Asilia"], ["Verney's Camp", "Machaba Safaris"], ["Vundu Camp", "Owner-run"], ["WalkMashatu", "Mashatu"], ["Walking with Giants", "Africa Geographic"], ["Wayo Little Green Camp", "Wayo Africa"], ["Wayo Serengeti Green Camp", "Wayo Africa"], ["Wayo Walking Camp", "Wayo Africa"], ["Wilderness Busanga Bush Camp", "Wilderness"], ["Wilderness Shumba", "Wilderness"], ["Wolhuter Wilderness Trail", "SANParks (South African National Parks)"], ["Zungulila Bushcamp", "The Bushcamp Company"], ["andBeyond Ngala Tented Camp", "andBeyond"], ["ol Donyo Lodge", "Great Plains"]];
+function opFor(c){c=(c||'').trim().toLowerCase();for(var i=0;i<CAMPS.length;i++){if(CAMPS[i][0].toLowerCase()===c)return CAMPS[i][1]}return ''}
+S.trip=S.trip||{};['camp','guide'].forEach(function(k){var el=$(k);if(!el)return;el.value=S.trip[k]||'';el.addEventListener('change',function(){S.trip[k]=el.value.trim().slice(0,80);save()})});
+if(S.trip.camp||S.trip.guide)$('trip').open=true;
+function renderStamp(){
+  var g=goodStamp(),n=Object.keys(S.ticks).length,last=S.stamps[S.stamps.length-1];
+  $('nDone').textContent=n;
+  if(g){$('pin').classList.add('ok');$('stampT').innerHTML='<strong></strong>';$('stampT').firstChild.textContent=g.area;$('stampT').appendChild(document.createTextNode('Stamped '+new Date(g.at).toLocaleDateString(undefined,{day:'numeric',month:'long',year:'numeric'})));$('bStamp').textContent='Stamp again'}
+  else{$('pin').classList.remove('ok')}
+  var ready=n===5&&!!g;$('bSend').disabled=!ready||!!S.sent;
+  $('sendHint').textContent=S.sent?'Sent. Thank you!':ready?'All five done and stamped. Send it in!':(n<5?(5-n)+' to go. ':'')+(g?'':'Stamp your area while you are in a Safari Five area.');
+  $('queued').hidden=!(S.outbox&&S.outbox.some(function(o){return o.form==='completion'}));
+}
+function addStamp(lat,lng,acc){
+  // Privacy: the position is used here, on the phone, to find the area, then discarded. Only the area name and time are kept or sent.
+  var m=$('stampMsg');m.hidden=false;
+  if(acc&&acc>20000){m.className='note bad';m.textContent='Your phone could not get a clear fix. Step outside, wait a moment and try again.';return}
+  var a=areaFor(lat,lng);lat=lng=null;
+  if(a){S.stamps.push({area:a.name,at:new Date().toISOString()});if(S.stamps.length>20)S.stamps.shift();save();m.className='note';m.textContent='Stamped in '+a.name+'. This counts.'}
+  else{m.className='note bad';m.textContent='You are not in a Safari Five area yet. Try again once you are in camp or out in the park. Nothing has been saved or sent.'}
+  renderStamp();
+}
+$('bStamp').addEventListener('click',function(){
+  var m=$('stampMsg');
+  if(!navigator.geolocation){m.hidden=false;m.className='note bad';m.textContent='This phone cannot share its location with the app.';return}
+  m.hidden=false;m.className='note';m.textContent='Finding your location. Out in the bush this can take a minute.';
+  navigator.geolocation.getCurrentPosition(function(p){addStamp(p.coords.latitude,p.coords.longitude,p.coords.accuracy)},function(err){
+    m.className='note bad';m.textContent=err.code===1?'Location is turned off for this app. Allow location in your phone settings, then try again.':'Could not find your location. Step outside, wait a moment and try again.'},{enableHighAccuracy:true,timeout:60000,maximumAge:0});
+});
+if(!LIVE){$('demo').hidden=false;$('bDemo').addEventListener('click',function(){addStamp(-13.10,31.80,25)})}
+
+$('bSend').addEventListener('click',function(){
+  var g=goodStamp();if(!g||Object.keys(S.ticks).length<5)return;
+  var done=Object.keys(S.ticks).map(function(k){return S.ticks[k]}).sort().pop();
+  S.history=S.history||[];var yrs=S.history.map(function(h){return new Date(h.at).getFullYear()});
+  var sl=S.history.concat([{area:g.area,at:done}]).filter(function(h){return /^South Luangwa/.test(h.area)}),slTrips={};
+  sl.forEach(function(h){var d=new Date(h.at);slTrips[d.getFullYear()+'-'+d.getMonth()]=1});
+  var rank=S.history.length>=2?'Dugga Boy':'Safari Five';
+  S.completed={name:shortName(),area:g.area,month:monthOf(done),at:done,rank:rank};S.history.push(S.completed);
+  queue('completion',{first_name:S.first,last_name:S.last,email:S.email,news:S.news?'yes':'no',wall_name:S.completed.name,home_country:S.home||'',country:g.area.split(', ').pop(),rank:S.completed.rank,completions:S.history.length,area:g.area,month:S.completed.month,
+    stamp_time:g.at,camp:(S.trip&&S.trip.camp)||'',operator:opFor(S.trip&&S.trip.camp),guide:(S.trip&&S.trip.guide)||'',
+    ticks:FIVE.map(function(f){return f.slug+':'+(S.ticks[f.slug]||'')}).join(' | ')});
+  save();renderDone();show('sDone');
+});
+
+/* ---- done ---- */
+function renderDone(){var c=S.completed;$('who').textContent=c.name;$('whereTxt').textContent=c.area+' · '+c.month;$('rank').textContent='Your rank: '+c.rank}
+$('bAgain').addEventListener('click',function(){S.ticks={};S.stamps=[];S.trip={};$('camp').value='';$('guide').value='';S.sent=false;S.completed=null;save();renderList();show('sList')});
+function stampPng(cb){
+  var svg=$('badgeWrap').querySelector('svg').outerHTML,img=new Image(),W=1080,H=1350;
+  img.onload=function(){var c=document.createElement('canvas');c.width=W;c.height=H;var x=c.getContext('2d');
+    x.fillStyle='#F2EADB';x.fillRect(0,0,W,H);x.drawImage(img,190,120,700,700);
+    x.fillStyle='#1E1B16';x.textAlign='center';x.font='700 76px "Zilla Slab", Georgia, serif';x.fillText(S.completed.name,W/2,960);
+    x.font='500 42px "Work Sans", sans-serif';x.fillStyle='#5A5142';x.fillText(S.completed.area+' · '+S.completed.month,W/2,1035);if(S.completed.rank){x.font='600 30px "Work Sans", sans-serif';x.fillStyle='#8A5A1E';x.fillText(S.completed.rank.toUpperCase(),W/2,1100)}
+    x.font='600 34px "Work Sans", sans-serif';x.fillStyle='#8A5A1E';x.fillText('#SafariFive · safarifive.com',W/2,1230);
+    c.toBlob(cb,'image/png')};
+  img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg.replace('<svg ','<svg xmlns="http://www.w3.org/2000/svg" ').replace(/xmlns="http:\/\/www.w3.org\/2000\/svg" xmlns=/,'xmlns='));
+}
+$('bSave').addEventListener('click',function(){stampPng(function(b){var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='my-safari-five.png';document.body.appendChild(a);a.click();a.remove()})});
+$('bShare').addEventListener('click',function(){
+  stampPng(function(b){var file=new File([b],'my-safari-five.png',{type:'image/png'}),txt='I did the Safari Five in '+S.completed.area+'. #SafariFive';
+    if(navigator.canShare&&navigator.canShare({files:[file]}))navigator.share({files:[file],text:txt}).catch(function(){});
+    else if(navigator.share)navigator.share({text:txt,url:'https://safarifive.com'}).catch(function(){});
+    else{try{navigator.clipboard.writeText(txt+' https://safarifive.com')}catch(e){}$('bShare').textContent='Copied'}});
+});
+
+/* ---- start ---- */
+if(!S.email)show('sWelcome');else if(S.completed){renderDone();show('sDone')}else{renderList();show('sList')}
+flush();
+var standalone=window.matchMedia('(display-mode: standalone)').matches||navigator.standalone;if(!standalone)$('installTip').hidden=false;
+if('serviceWorker' in navigator&&LIVE){navigator.serviceWorker.register('sw.js').catch(function(){})}
+</script>
+</body>
+</html>
