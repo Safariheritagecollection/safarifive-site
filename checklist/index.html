@@ -220,15 +220,18 @@ function addStamp(lat,lng,acc){
   if(acc&&acc>20000){m.className='note bad';m.textContent='Your phone could not get a clear fix. Step outside, wait a moment and try again.';return}
   var a=areaFor(lat,lng);lat=lng=null;
   if(a){S.stamps.push({area:a.name,at:new Date().toISOString()});if(S.stamps.length>20)S.stamps.shift();save();m.className='note';m.textContent='Stamped in '+a.name+'. This counts.'}
-  else{m.className='note bad';m.textContent='You are not in a Safari Five area yet. Try again once you are in camp or out in the park. Nothing has been saved or sent.'}
+  else{m.className='note bad';m.textContent='You are not in a Safari Five area yet, so there is nothing to stamp here. The stamp only works inside a Safari Five area, such as South Luangwa, so tap it again once you are in camp or out in the park. Nothing has been saved or sent. See Where to find it on safarifive.com for the areas.'}
   renderStamp();
 }
+var LOCOFF=/iPhone|iPad|iPod/.test(navigator.userAgent)
+  ?'Your phone is not sharing its location with the app. On iPhone: open Settings, then Privacy & Security, then Location Services. Make sure Location Services is on, tap Safari Websites and choose While Using the App. Come back and tap Stamp my area again, then tap Allow. (Private browsing tabs can block this too, so use a normal tab or the home-screen app.)'
+  :'Your phone is not sharing its location with the app. Make sure Location is on in your phone settings. Then tap the icon next to the web address at the top of the browser, open Permissions, set Location to Allow, and tap Stamp my area again.';
 $('bStamp').addEventListener('click',function(){
   var m=$('stampMsg');
-  if(!navigator.geolocation){m.hidden=false;m.className='note bad';m.textContent='This phone cannot share its location with the app.';return}
+  if(!navigator.geolocation){m.hidden=false;m.className='note bad';m.textContent='This browser cannot share your location with the app. Open the app in Safari on iPhone or Chrome on Android and try again.';return}
   m.hidden=false;m.className='note';m.textContent='Finding your location. Out in the bush this can take a minute.';
   navigator.geolocation.getCurrentPosition(function(p){addStamp(p.coords.latitude,p.coords.longitude,p.coords.accuracy)},function(err){
-    m.className='note bad';m.textContent=err.code===1?'Location is turned off for this app. Allow location in your phone settings, then try again.':'Could not find your location. Step outside, wait a moment and try again.'},{enableHighAccuracy:true,timeout:60000,maximumAge:0});
+    m.className='note bad';m.textContent=err.code===1?LOCOFF:(err.code===3?'Your phone took too long to find you. Step outside where it can see the sky, wait a minute and try again.':'Could not find your location. Check that Location is on in your phone settings, step outside, wait a moment and try again.')},{enableHighAccuracy:true,timeout:60000,maximumAge:0});
 });
 if(!LIVE){$('demo').hidden=false;$('bDemo').addEventListener('click',function(){addStamp(-13.10,31.80,25)})}
 
